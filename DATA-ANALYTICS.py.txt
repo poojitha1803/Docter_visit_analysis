@@ -1,0 +1,388 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# # 
+
+# # Import the libraries
+
+# In[3]:
+
+
+# load libraries
+import pandas as pd
+
+
+# # Read the dataset
+
+# In[4]:
+
+
+dv=pd.read_excel("DoctorVisits.xlsx")
+dv.head()
+
+
+# # Display all the columns of the dataset where datatypes,column name,count and overall memory
+
+# In[5]:
+
+
+dv=pd.read_excel("DoctorVisits.xlsx")
+dv.info()
+
+
+# # Find the total no of people based on their count age,income,gender
+
+# In[6]:
+
+
+dv["age"]=dv["age"]*70
+
+
+# In[7]:
+
+
+dv
+
+
+# In[8]:
+
+
+dv["income"]=dv["income"]*15000
+dv
+
+
+# In[9]:
+
+
+dv["gender"].value_counts()
+
+
+# In[11]:
+
+
+dv
+
+
+# # Find the value count of different data types
+
+# In[12]:
+
+
+dv["visits"].value_counts()
+
+
+# In[13]:
+
+
+dv["age"].value_counts()
+
+
+# In[14]:
+
+
+dv["health"].value_counts()
+
+
+# In[15]:
+
+
+dv["illness"].value_counts()
+
+
+# In[16]:
+
+
+dv["reduced"].value_counts()
+
+
+# # Describing the info of the datatypes
+
+# In[18]:
+
+
+# load libraries
+import pandas as pd
+
+
+# In[19]:
+
+
+dv.describe()
+
+
+# In[20]:
+
+
+dv=pd.read_excel("DoctorVisits.xlsx")
+dv.dropna(axis = 1)
+
+
+# In[22]:
+
+
+dv=pd.read_excel("DoctorVisits.xlsx")
+dv.fillna("14")
+
+
+# In[23]:
+
+
+dv.ffill(axis = 1)
+
+
+# In[24]:
+
+
+dv.bfill(axis = 1)
+
+
+# In[25]:
+
+
+dv.drop_duplicates()
+
+
+# In[26]:
+
+
+dv.drop_duplicates(subset=['private'])
+
+
+# In[27]:
+
+
+dv.drop_duplicates(subset=['freerepat','illness'])
+
+
+# In[28]:
+
+
+dv.shape
+
+
+# In[29]:
+
+
+dv.columns
+
+
+# In[30]:
+
+
+dv.isna().sum()
+
+
+# # Analyzing the variables
+
+# In[31]:
+
+
+# load libraries
+import pandas as pd
+dv=pd.read_excel("DoctorVisits.xlsx")
+dv.visits.unique()
+
+
+# In[32]:
+
+
+dv.gender.unique()
+
+
+# In[33]:
+
+
+dv.freerepat.unique()
+
+
+# In[34]:
+
+
+dv.private.unique()
+
+
+# In[35]:
+
+
+dv.nchronic.unique()
+
+
+# In[36]:
+
+
+dv.age.unique()
+
+
+# In[37]:
+
+
+dv.income.unique()
+
+
+# In[38]:
+
+
+dv.nunique()
+
+
+# # Exploring and Plotting the data
+
+# In[39]:
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+# In[41]:
+
+
+dv=pd.read_excel("DoctorVisits.xlsx")
+dv.head()
+
+
+# In[42]:
+
+
+sns.histplot(dv['age'], bins=50)
+
+
+# In[43]:
+
+
+sns.histplot(dv['age'], bins=25)
+plt.xlabel('Age')
+plt.ylabel('visit')
+plt.title('Distribution of Patients Ages')
+plt.show
+
+
+# In[57]:
+
+
+gender_counts = dv['gender'].value_counts()
+sns.barplot(x=gender_counts.index,y=gender_counts.values)
+plt.xlabel('gender')
+plt.ylabel('visit')
+plt.title('Distribution of Patient Gender')
+plt.show()
+
+
+# In[45]:
+
+
+sns.histplot(dv['visits'], bins=40)
+plt.xlabel('visits')
+plt.ylabel('income')
+plt.title('visit analysis')
+plt.show
+
+
+# # Observations
+
+# In[62]:
+
+
+labels=['visits','illness','reduced','health']
+sizes=[30,20,18,4]
+plt.pie(sizes,labels=labels,autopct = '%1.1f%%')
+plt.title('overall analysis of patients')
+plt.show()
+
+
+# In[47]:
+
+
+x = [16,12,13,18,25]
+y = [10,15,18,29,6]
+plt.plot(x,y)
+plt.xlabel('nchronic')
+plt.ylabel('Ichronic')
+plt.title('Disease analysis')
+plt.show()
+
+
+# In[48]:
+
+
+labels=['freerepat','freepoor']
+sizes=[60,70]
+plt.pie(sizes,labels=labels,autopct = '%1.1f%%')
+plt.title('patient health insurance analysis')
+plt.show()
+
+
+# In[49]:
+
+
+labels=['visits','illness']
+sizes=[75,55]
+plt.pie(sizes,labels=labels,autopct = '%1.1f%%')
+plt.title('overall analysis of patients')
+plt.show()
+
+
+# In[50]:
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+# In[51]:
+
+
+labels=['visits','illness','reduced','health']
+sizes=[16,35,24,10]
+plt.pie(sizes,labels=labels,autopct = '%1.1f%%')
+plt.title('overall analysis of patients')
+plt.show()
+
+
+# In[52]:
+
+
+x = [19,70,56,89,20]
+y = [25,40,56,70,65]
+plt.scatter(x,y)
+plt.xlabel('freepoor')
+plt.ylabel('private')
+plt.title('insurance analysis')
+plt.show()
+
+
+# In[53]:
+
+
+import pandas as pd
+dv=pd.read_excel("DoctorVisits.xlsx")
+
+
+# In[54]:
+
+
+dv.hist(figsize=(35,28))
+
+
+# In[55]:
+
+
+x= (dv[['health']]==1).sum()
+y= (dv[['health']]==0).sum()
+percent= ((x*y)/(x+y))*100
+percent
+
+
+# # Conclusion
+
+# a) We investigated the patient doctor visits dataset.
+# 
+# b) Women outnumber men in terms of population. Income has no effect on the integrity of the dataset. Age and health status have a slightly higher influence on the analyses.
+# 
+# c) The data set's private data is not widely used.
+# 
+# d) When it comes to the factors of age and health, they are causing some kind of difference in the analytics.
+# 
+# e) The dataset's private data is not widely used.
